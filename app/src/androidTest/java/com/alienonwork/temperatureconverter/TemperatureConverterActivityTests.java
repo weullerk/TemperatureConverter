@@ -28,6 +28,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class TemperatureConverterActivityTests {
@@ -113,6 +114,13 @@ public class TemperatureConverterActivityTests {
         String errorMessage = String.format("Expected 0x%02x", expectedGravity, actual);
 
         assertEquals(errorMessage, expectedGravity, actual);
+    }
+
+    public void testVirtualKeyboardSpaceReserved() {
+        int expected = getIntPixelSize(R.dimen.keyboard_space);
+        int actual = fahrenheitInput.getBottom();
+        String errorMessage = "Space not reserved, expected " + expected + " actual " + actual;
+        assertTrue(errorMessage, actual <= expected);
     }
 
     private Matcher<View> withWidth(final int width) {
